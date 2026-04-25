@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexoCarrera — Defensa del Plan de Negocio</title>
+<link rel="stylesheet" href="vendor/reveal.css">
+<style>
+
+/* ── FUENTE INTER (variable font, offline) ──────────────────── */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(vendor/inter-var.woff2) format('woff2');
+}
+
+/* ── VARIABLES ──────────────────────────────────────────────── */
+:root {
+  --bg:      #0b1120;
+  --surface: #141f35;
+  --border:  #2a3d5c;
+  --accent:  #5b9cf6;
+  --cyan:    #22d3ee;
+  --white:   #ffffff;
+  --muted:   #c4d4e8;
+  --gold:    #fbbf24;
+}
+
+/* ── REVEAL BASE ────────────────────────────────────────────── */
+.reveal-viewport { background: var(--bg); }
+
+.reveal {
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  color: var(--white);
+}
+
+/* Sections: flex column so content fills full height */
+.reveal .slides section {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 36px 52px 28px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cover and index wrappers handle their own padding */
+.reveal .slides section[data-state="cover"],
+.reveal .slides section[data-state="index"] {
+  padding: 0 !important;
+}
+
+/* ── PORTADA ────────────────────────────────────────────────── */
+.cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 52px 64px 40px;
+  box-sizing: border-box;
+}
+.cover-dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(91,156,246,0.7) 1.5px, transparent 1.5px);
+  background-size: 30px 30px;
+  opacity: 0.12;
+  pointer-events: none;
+}
+.cover-corner {
+  position: absolute;
+  top: 0; right: 0;
+  width: 200px; height: 200px;
+  border-top: 2px solid rgba(91,156,246,0.5);
+  border-right: 2px solid rgba(91,156,246,0.5);
+  pointer-events: none;
+}
+.cover-accent-stripe {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--cyan) 50%, transparent 100%);
+}
+.cover-g7 {
+  position: absolute;
+  bottom: -20px; right: 20px;
+  font-size: 16em;
+  font-weight: 700;
+  color: #ffffff;
+  opacity: 0.04;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+.cover-content { position: relative; z-index: 1; }
+.cover-tag {
+  display: inline-block;
+  font-size: 0.65em;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 1.2em;
+  border: 1px solid rgba(91,156,246,0.35);
+  padding: 4px 12px;
+  border-radius: 3px;
+}
+.cover-title {
+  font-size: 5em;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.2em;
+}
+.cover-subtitle {
+  font-size: 1em;
+  font-weight: 300;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  margin-bottom: 1.8em;
+}
+.cover-sep {
+  width: 56px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--cyan));
+  margin-bottom: 1.2em;
+  border-radius: 1px;
+}
+.cover-authors {
+  font-size: 0.62em;
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 2.0;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+/* ── ÍNDICE INTERACTIVO ─────────────────────────────────────── */
+.idx-wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 36px 52px 28px;
+  box-sizing: border-box;
+}
+.idx-header {
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.idx-heading {
+  font-size: 0.75em;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+.idx-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 14px;
+  flex: 1;
+}
+.idx-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px 20px;
+  opacity: 0.3;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.idx-item.active {
+  border-color: var(--accent);
+  border-left: 4px solid var(--accent);
+  background: rgba(91,156,246,0.1);
+  opacity: 1;
+  box-shadow: 0 0 20px rgba(91,156,246,0.15);
+}
+.idx-num {
+  font-size: 0.7em;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+.idx-label {
+  font-size: 0.82em;
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.idx-item.active .idx-label {
+  color: var(--white);
+  font-weight: 600;
+}
+
+/* ── SLIDE HEADER ───────────────────────────────────────────── */
+.slide-section {
+  display: block;
+  font-size: 0.65em;
+  font-weight: 600;
+  color: var(--cyan);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 0.3em;
+  flex-shrink: 0;
+}
+.slide-title {
+  font-size: 1.15em;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  margin-bottom: 0.75em;
+  padding-bottom: 0.55em;
+  padding-left: 14px;
+  border-left: 3px solid var(--accent);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+/* ── BULLETS — fill remaining height ────────────────────────── */
+.reveal ul {
+  list-style: none;
+  margin: 0; padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.reveal ul li {
+  font-size: 0.88em;
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.65;
+  padding-left: 1.3em;
+  position: relative;
+  flex-shrink: 0;
+}
+.reveal ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.75em;
+  top: 0.18em;
+}
+.reveal ul li strong { color: var(--white); font-weight: 600; }
+.reveal ul li em { color: var(--cyan); font-style: normal; font-weight: 500; }
+
+/* ── GRID 2×2 — fill height ─────────────────────────────────── */
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  flex: 1;
+}
+
+/* ── CARD ───────────────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+}
+.card.accent {
+  border-left: 4px solid var(--accent);
+  background: rgba(91,156,246,0.07);
+}
+.card.cyan {
+  border-left: 4px solid var(--cyan);
+  background: rgba(34,211,238,0.06);
+}
+.card-title {
+  font-size: 0.78em;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+.card ul { list-style: none; padding: 0; margin: 0; flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; }
+.card li {
+  font-size: 0.75em !important;
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.5;
+  padding-left: 1em;
+  position: relative;
+  list-style: none;
+}
+.card li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.8em;
+  top: 0.15em;
+}
+.card p {
+  font-size: 0.75em;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+.card.accent .card-title { color: var(--accent); }
+
+/* ── PORTER 5-col — fill height ─────────────────────────────── */
+.porter-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  flex: 1;
+}
+.porter-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+}
+.porter-card.accent {
+  border-top: 3px solid var(--accent);
+  background: rgba(91,156,246,0.07);
+}
+.porter-title {
+  font-size: 0.7em;
+  font-weight: 700;
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+.porter-card p {
+  font-size: 0.68em;
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 0;
+  flex: 1;
+}
+
+/* ── TEAM TABLE — fill height ───────────────────────────────── */
+.team-table {
+  width: 100%;
+  border-collapse: collapse;
+  flex: 1;
+  display: table;
+}
+.team-table th {
+  background: rgba(91,156,246,0.12);
+  border: 1px solid var(--border);
+  padding: 12px 16px;
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 0.82em;
+}
+.team-table td {
+  border: 1px solid var(--border);
+  padding: 13px 16px;
+  color: var(--muted);
+  line-height: 1.45;
+  font-size: 0.85em;
+}
+.team-table tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+.team-table td:first-child { color: var(--accent); font-weight: 700; font-size: 0.9em; }
+.team-table td:nth-child(2) { color: var(--white); font-weight: 600; }
+.tag-you {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 0.7em;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 6px;
+  letter-spacing: 0;
+}
+
+/* ── MISIÓN VISIÓN ──────────────────────────────────────────── */
+.mv-row { display: flex; gap: 16px; margin-bottom: 12px; flex-shrink: 0; }
+.mv-block { flex: 1; }
+.mv-label {
+  font-size: 0.7em;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 6px;
+}
+.mv-text {
+  font-size: 0.78em;
+  color: var(--muted);
+  line-height: 1.65;
+  border-left: 3px solid var(--border);
+  padding-left: 12px;
+}
+
+/* ── VALORES GRID — fill height ─────────────────────────────── */
+.valores-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  flex: 1;
+}
+.valor-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.valor-card.accent {
+  border-left: 4px solid var(--accent);
+  background: rgba(91,156,246,0.08);
+}
+.valor-card-title {
+  font-size: 0.76em;
+  font-weight: 700;
+  color: var(--accent);
+}
+.valor-card p {
+  font-size: 0.7em;
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ── MARKETING CARDS — fill height ─────────────────────────── */
+.mktg-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  flex: 1;
+}
+.mktg-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+}
+.mktg-card.accent {
+  border-left: 4px solid var(--accent);
+  background: rgba(91,156,246,0.07);
+}
+.mktg-card-title {
+  font-size: 0.8em;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.mktg-card ul { list-style: none; padding: 0; margin: 0; flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; }
+.mktg-card li {
+  font-size: 0.74em;
+  color: var(--muted);
+  line-height: 1.5;
+  padding-left: 1.1em;
+  position: relative;
+  list-style: none;
+}
+.mktg-card li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.8em;
+  top: 0.15em;
+}
+.mktg-card li strong { color: var(--white); }
+
+/* ── FINANCIERO ─────────────────────────────────────────────── */
+.fin-section { margin-bottom: 10px; flex-shrink: 0; }
+.fin-label {
+  font-size: 0.75em;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+  padding-left: 10px;
+  border-left: 3px solid var(--accent);
+}
+.fin-list { list-style: none; padding: 0 0 0 10px; margin: 3px 0 0; }
+.fin-list li {
+  font-size: 0.72em;
+  color: var(--muted);
+  line-height: 1.55;
+  margin-bottom: 2px;
+  padding-left: 1.1em;
+  position: relative;
+}
+.fin-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.8em;
+  top: 0.15em;
+}
+.fin-list li ul { padding-left: 10px; margin-top: 2px; }
+.fin-list li ul li::before { content: '·'; color: var(--border); }
+.fin-list li strong { color: var(--gold); }
+
+/* ── CONCLUSION ─────────────────────────────────────────────── */
+.conclusion {
+  margin-top: 12px;
+  font-size: 0.73em;
+  color: var(--muted);
+  line-height: 1.7;
+  border-left: 3px solid var(--accent);
+  padding-left: 14px;
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+/* ── EXEC / KPI — fill height ───────────────────────────────── */
+.exec-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  flex: 1;
+}
+.exec-block { margin-bottom: 10px; }
+.exec-label {
+  font-size: 0.65em;
+  font-weight: 700;
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 5px;
+}
+.exec-block p, .exec-block li {
+  font-size: 0.76em;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0 0 3px;
+}
+.exec-block ul { list-style: none; padding: 0; margin: 0; }
+.exec-block li {
+  padding-left: 1.1em;
+  position: relative;
+}
+.exec-block li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.8em;
+  top: 0.15em;
+}
+.kpi-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+.kpi {
+  flex: 1;
+  background: rgba(251,191,36,0.08);
+  border: 1px solid rgba(251,191,36,0.3);
+  border-top: 3px solid var(--gold);
+  border-radius: 8px;
+  padding: 16px 14px;
+  text-align: center;
+}
+.kpi-value {
+  display: block;
+  font-size: 1.6em;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.kpi-label {
+  display: block;
+  font-size: 0.58em;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ── ANNEXES TABLE ──────────────────────────────────────────── */
+.anx-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82em;
+  margin-top: 10px;
+  flex: 1;
+  display: table;
+}
+.anx-table th {
+  background: rgba(91,156,246,0.12);
+  border: 1px solid var(--border);
+  padding: 12px 16px;
+  color: var(--accent);
+  font-weight: 700;
+  text-align: left;
+  letter-spacing: 0.06em;
+}
+.anx-table td {
+  border: 1px solid var(--border);
+  padding: 12px 16px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.anx-table tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+
+/* ── ANIMATIONS ─────────────────────────────────────────────── */
+@keyframes slideInLeft {
+  from { transform: translateX(-20px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+.idx-item.active.anim { animation: slideInLeft 0.22s cubic-bezier(0.22,1,0.36,1); }
+
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ════════════════════════════════════════════
+     [01] PORTADA
+════════════════════════════════════════════ -->
+<section data-state="cover">
+  <div class="cover">
+    <div class="cover-dot-grid"></div>
+    <div class="cover-corner"></div>
+    <div class="cover-g7">G7</div>
+    <div class="cover-content">
+      <span class="cover-tag">URJC &nbsp;·&nbsp; Ciencia e Ingeniería de Datos &nbsp;·&nbsp; 2026</span>
+      <div class="cover-title">NexoCarrera.</div>
+      <div class="cover-subtitle">Defensa del Plan de Negocio</div>
+      <div class="cover-sep"></div>
+      <div class="cover-authors">
+        Adrián García Fernández &nbsp;·&nbsp; Bruno Arnaiz Santamaría &nbsp;·&nbsp; David García Berlanga<br>
+        Pablo Morejón Segovia &nbsp;·&nbsp; Jorge Julián Hernández Gómez
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [02] ÍNDICE BASE
+════════════════════════════════════════════ -->
+<section data-state="index">
+  <div class="idx-wrap">
+    <div class="idx-header">
+      <span class="idx-heading">Índice de contenidos</span>
+    </div>
+    <div class="idx-grid" id="idx-0"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [03] ÍNDICE activo: 1
+════════════════════════════════════════════ -->
+<section data-state="index">
+  <div class="idx-wrap">
+    <div class="idx-header">
+      <span class="idx-heading">Índice</span>
+    </div>
+    <div class="idx-grid" id="idx-1" data-active="1"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [04] Presentación — La idea
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Presentación del proyecto y equipo</span>
+  <div class="slide-title">La idea: NexoCarrera</div>
+  <ul>
+    <li><strong>NexoCarrera</strong> es una plataforma digital que utiliza inteligencia artificial para orientar profesionalmente a estudiantes universitarios y recién graduados.</li>
+    <li><strong>El nombre lo dice todo:</strong> somos el <em>nexo</em> entre la carrera universitaria y la carrera profesional.</li>
+    <li><strong>Propuesta de valor:</strong> un chat inteligente y un análisis de perfil que ayuda a los usuarios a descubrir el camino profesional que mejor encaja con ellos y los pasos concretos para lograr su primer empleo.</li>
+    <li><strong>Diferenciador principal:</strong> mediante el algoritmo de <em>Matching de Especialización</em> (Estrategia de Océano Azul), no acumulamos más ofertas — reducimos la incertidumbre del estudiante y entregamos a las empresas talento previamente filtrado.</li>
+  </ul>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [05] Presentación — El equipo
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Presentación del proyecto y equipo</span>
+  <div class="slide-title">El equipo promotor</div>
+  <table class="team-table">
+    <tr>
+      <th>Rol</th>
+      <th>Nombre</th>
+      <th>Función principal</th>
+    </tr>
+    <tr>
+      <td>CEO</td>
+      <td>Adrián García Fernández</td>
+      <td>Visión estratégica, coordinación y representación institucional</td>
+    </tr>
+    <tr>
+      <td>CBDO <span class="tag-you">tú</span></td>
+      <td>Bruno Arnaiz Santamaría</td>
+      <td>Relaciones con empresas y universidades, cierre de acuerdos B2B e institucionales</td>
+    </tr>
+    <tr>
+      <td>CPO</td>
+      <td>Pablo Morejón Segovia</td>
+      <td>Diseño del producto y experiencia de usuario</td>
+    </tr>
+    <tr>
+      <td>CMO</td>
+      <td>Jorge Julián Hernández Gómez</td>
+      <td>Marketing digital, captación de usuarios y posicionamiento de marca</td>
+    </tr>
+    <tr>
+      <td>CTO</td>
+      <td>David García Berlanga</td>
+      <td>Arquitectura tecnológica, algoritmo de matching e infraestructura cloud</td>
+    </tr>
+  </table>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [06] Presentación — Por qué somos ganadores
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Presentación del proyecto y equipo</span>
+  <div class="slide-title">Por qué somos un equipo ganador</div>
+  <ul>
+    <li><strong>Entendemos el problema desde dentro:</strong> somos universitarios y hemos vivido la incertidumbre que NexoCarrera resuelve.</li>
+    <li><strong>Competencias técnicas propias:</strong> como ingenieros de datos, construimos el algoritmo de IA sin depender de terceros — nuestro activo más valioso lo controlamos nosotros.</li>
+    <li><strong>Cobertura total desde el día 1:</strong> CEO, CTO, CPO, CMO y CBDO. Todas las áreas clave del negocio cubiertas sin necesidad de incorporaciones externas en fase inicial.</li>
+    <li><strong>Estructura horizontal y ágil:</strong> toma de decisiones rápida y adaptación constante al feedback del mercado, sin la rigidez de una estructura corporativa.</li>
+  </ul>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [07] Presentación — Misión, Visión y Valores
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Presentación del proyecto y equipo</span>
+  <div class="slide-title">Misión, Visión y Valores</div>
+  <div class="mv-row">
+    <div class="mv-block">
+      <div class="mv-label">Misión</div>
+      <div class="mv-text">Eliminar la incertidumbre profesional del universitario, conectándole con su mejor trayectoria laboral a través de la inteligencia artificial.</div>
+    </div>
+    <div class="mv-block">
+      <div class="mv-label">Visión</div>
+      <div class="mv-text">Ser la plataforma de referencia en orientación laboral para universitarios en España y, a medio plazo, en Europa.</div>
+    </div>
+  </div>
+  <div class="valores-grid">
+    <div class="valor-card accent">
+      <div class="valor-card-title">Innovación</div>
+      <p>IA de vanguardia aplicada a un problema social real y urgente.</p>
+    </div>
+    <div class="valor-card">
+      <div class="valor-card-title">Impacto social</div>
+      <p>Ayudamos a los jóvenes a trabajar por pasión, no por necesidad.</p>
+    </div>
+    <div class="valor-card">
+      <div class="valor-card-title">Transparencia</div>
+      <p>El usuario siempre comprende por qué el algoritmo le recomienda cada camino.</p>
+    </div>
+    <div class="valor-card">
+      <div class="valor-card-title">Privacidad</div>
+      <p>Cumplimiento estricto del RGPD desde el primer día como compromiso ético.</p>
+    </div>
+    <div class="valor-card">
+      <div class="valor-card-title">Orientación al usuario</div>
+      <p>Cada decisión de producto parte de las necesidades reales del estudiante.</p>
+    </div>
+    <div class="valor-card accent">
+      <div class="valor-card-title">Ciencia de Datos</div>
+      <p>Demostramos que los datos pueden generar un impacto social incalculable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [08] ÍNDICE activo: 2
+════════════════════════════════════════════ -->
+<section data-state="index">
+  <div class="idx-wrap">
+    <div class="idx-header">
+      <span class="idx-heading">Índice</span>
+    </div>
+    <div class="idx-grid" id="idx-2" data-active="2"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [09] Negocio (I) — Descripción + Propuesta de valor
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Descripción del negocio y propuesta de valor</span>
+  <div class="slide-title">Descripción del negocio y propuesta de valor (I)</div>
+  <ul>
+    <li><strong>NexoCarrera</strong> es una plataforma digital que utiliza inteligencia artificial para orientar profesionalmente a estudiantes universitarios y recién graduados.</li>
+    <li><strong>Propuesta de Valor:</strong> Consiste en un chat inteligente y un análisis de perfil que ayuda a los usuarios a descubrir el camino profesional que mejor encaja con ellos y los pasos concretos para lograr su primer empleo.</li>
+    <li><strong>Diferenciador principal:</strong> Mediante su algoritmo de "Matching de Especialización" (Estrategia de Océano Azul), no compite por acumular más ofertas, sino que reduce la incertidumbre de los estudiantes y ofrece a las empresas talento joven previamente filtrado.</li>
+  </ul>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [10] Negocio (II) — PEST
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Análisis PEST (Análisis externo)</span>
+  <div class="slide-title">Descripción del negocio y propuesta de valor (II)</div>
+  <div class="grid2">
+    <div class="card accent">
+      <div class="card-title">Político-legal</div>
+      <ul>
+        <li>Estricto cumplimiento del RGPD al manejar datos psicológicos sensibles.</li>
+        <li>Fuerte dependencia de la lenta burocracia para firmar convenios universitarios.</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <div class="card-title">Económico</div>
+      <ul>
+        <li>El mercado sufre un alto paro juvenil.</li>
+        <li>Las empresas buscan urgentemente reducir tiempos y costes operativos en la contratación.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Social</div>
+      <ul>
+        <li>La Generación Z siente ansiedad por su futuro laboral.</li>
+        <li>Por ello, rechaza los portales de empleo tradicionales en favor de herramientas digitales más ágiles.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Tecnológico</div>
+      <ul>
+        <li>El uso de Inteligencia Artificial eleva la tasa de éxito al 90%.</li>
+        <li>Así, creamos un algoritmo difícil de copiar que requiere infraestructura en la nube.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [11] Negocio (III) — Porter
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Análisis de las 5 Fuerzas de Porter</span>
+  <div class="slide-title">Descripción del negocio y propuesta de valor (III)</div>
+  <div class="porter-grid">
+    <div class="porter-card accent">
+      <div class="porter-title">Rivalidad entre competidores</div>
+      <p>Casi no hay competencia, ya que gigantes como LinkedIn o InfoJobs no usan orientación personalizada apoyada en IA.</p>
+    </div>
+    <div class="porter-card">
+      <div class="porter-title">Amenaza de nuevos entrantes</div>
+      <p>Las barreras de entrada son considerables, especialmente porque el algoritmo de IA desarrollado resulta difícil de replicar o copiar.</p>
+    </div>
+    <div class="porter-card">
+      <div class="porter-title">Amenaza de productos sustitutivos</div>
+      <p>Los principales servicios sustitutivos provienen de agencias de orientación tradicionales o de los servicios de empleo internos de las propias universidades.</p>
+    </div>
+    <div class="porter-card">
+      <div class="porter-title">Poder de negociación de los clientes</div>
+      <p>Existen dos perfiles: 1. Estudiantes que buscan herramientas de bajo coste o gratuitas. 2. Empresas dispuestas a pagar por talento ya filtrado.</p>
+    </div>
+    <div class="porter-card">
+      <div class="porter-title">Poder de negociación de los proveedores</div>
+      <p>Las universidades poseen un gran poder, ya que son los proveedores principales que ceden los datos de los alumnos y aprueban los convenios necesarios para operar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [12] Negocio (IV) — Segmentación
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Segmentación del Mercado</span>
+  <div class="slide-title">Descripción del negocio y propuesta de valor (IV)</div>
+  <div class="grid2">
+    <div class="card accent">
+      <div class="card-title">Estudiantes de Grado (3º y 4º curso)</div>
+      <p>Estos estudiantes tienen incertidumbre por su futuro, ya que están viendo que les queda poco tiempo para acabar la carrera, y no saben qué salida elegir. Por ello, necesitan reducir esa incertidumbre y encontrar un camino claro.</p>
+    </div>
+    <div class="card accent">
+      <div class="card-title">Recién Graduados</div>
+      <p>Estos graduados buscan especializarse para diferenciarse de sus competencias. Antes de que inviertan tiempo y dinero, necesitan saber qué habilidades o másteres tienen valor para que se note esa diferencia con sus competidores.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Empresas (Reclutadores)</div>
+      <p>Las empresas buscan eficiencia, por ello buscan talento joven que ya esté filtrado y que sirvan para los perfiles que necesitan.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Universidades</div>
+      <p>Las universidades están interesadas en que sus estudiantes encuentren trabajo, ya que, así, aumentan sus tasas de empleabilidad y este aumento lo usan para publicitar su universidad.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [13] Negocio (V) — DAFO Debilidades + Amenazas
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Análisis DAFO</span>
+  <div class="slide-title">Descripción del negocio y propuesta de valor (V)</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Debilidades</div>
+      <ul>
+        <li>Dificultad de "arranque en frío": es muy complejo atraer empresas si aún no hay estudiantes inscritos, y viceversa.</li>
+        <li>Altos costes iniciales derivados del desarrollo de la Inteligencia Artificial y de los servicios en la nube.</li>
+        <li>Falta de reputación y prestigio al ser un proyecto recién nacido sin instituciones fuertes respaldándolo inicialmente.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Amenazas</div>
+      <ul>
+        <li>Riesgo de que gigantes del sector (InfoJobs, LinkedIn) repliquen la funcionalidad.</li>
+        <li>Riesgos legales vinculados al RGPD debido al manejo de datos sensibles y perfiles psicológicos.</li>
+        <li>Cierre de ventas muy lento, ya que se tarda mucho en conseguir acuerdos porque hay demasiados pasos administrativos.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [14] Negocio (VI) — DAFO Fortalezas + Oportunidades
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Análisis DAFO</span>
+  <div class="slide-title">Descripción del negocio y propuesta de valor (VI)</div>
+  <div class="grid2">
+    <div class="card accent">
+      <div class="card-title">Fortalezas</div>
+      <ul>
+        <li>No es una simple bolsa de empleo, sino que es una IA que recoge los datos del usuario y lo orienta de la mejor manera posible.</li>
+        <li>Es un modelo de negocio que aporta beneficios importantes a alumnos, universidades y empresas.</li>
+        <li>Estructura de ingresos diversificada mediante licencias, cuotas corporativas y publicidad.</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <div class="card-title">Oportunidades</div>
+      <ul>
+        <li>Las empresas buscan jóvenes que encajen de manera precisa con sus demandas.</li>
+        <li>Las universidades necesitan herramientas que mejoren las tasas de empleabilidad de sus graduados.</li>
+        <li>La Generación Z demanda soluciones digitales modernas y rechaza los métodos de reclutamiento tradicionales.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [15] ÍNDICE activo: 3
+════════════════════════════════════════════ -->
+<section data-state="index">
+  <div class="idx-wrap">
+    <div class="idx-header">
+      <span class="idx-heading">Índice</span>
+    </div>
+    <div class="idx-grid" id="idx-3" data-active="3"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [16] Marketing (I) — Producto y Precio
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Plan de marketing</span>
+  <div class="slide-title">Plan de marketing (I) — Producto y Precio</div>
+  <div class="mktg-grid">
+    <div class="mktg-card accent">
+      <div class="mktg-card-title">Producto</div>
+      <ul>
+        <li>Plataforma digital accesible desde web y móvil.</li>
+        <li>Test de perfil inicial: formación, intereses y habilidades.</li>
+        <li><strong>Algoritmo de Matching de Especialización</strong> — núcleo diferenciador.</li>
+        <li>Chat IA para refinar el perfil y resolver dudas en tiempo real.</li>
+        <li>Ofertas laborales ya filtradas y alineadas con el perfil del usuario.</li>
+      </ul>
+    </div>
+    <div class="mktg-card">
+      <div class="mktg-card-title">Precio</div>
+      <ul>
+        <li><strong>B2C Freemium:</strong> acceso gratuito para masa crítica de datos + Premium a <strong>9,90€/mes</strong>.</li>
+        <li><strong>B2B Pay Per Match:</strong> <strong>150€</strong> por cada estudiante contratado con éxito.</li>
+        <li><strong>B2B Corporativo:</strong> <strong>200€/mes</strong> — acceso ilimitado a perfiles filtrados.</li>
+        <li><strong>Convenios universitarios:</strong> cuota anual para integrar NexoCarrera como herramienta oficial de orientación.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [17] Marketing (II) — Distribución y Comunicación
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Plan de marketing</span>
+  <div class="slide-title">Plan de marketing (II) — Distribución y Comunicación</div>
+  <div class="mktg-grid">
+    <div class="mktg-card">
+      <div class="mktg-card-title">Distribución</div>
+      <ul>
+        <li>Canal digital directo: web app + aplicación móvil.</li>
+        <li>Convenios con universidades: distribución institucional desde el campus. Primer piloto en la URJC.</li>
+        <li>Integración en portales de empleabilidad y orientación universitaria.</li>
+      </ul>
+    </div>
+    <div class="mktg-card accent">
+      <div class="mktg-card-title">Comunicación</div>
+      <ul>
+        <li><strong>Redes sociales:</strong> Instagram y LinkedIn orientados a estudiantes universitarios.</li>
+        <li><strong>Campus tours y ferias universitarias:</strong> captación directa en el entorno del cliente.</li>
+        <li><strong>Programa de referidos:</strong> los propios estudiantes invitan a sus compañeros.</li>
+        <li><strong>Alianzas con delegaciones de estudiantes:</strong> canales de alta confianza y bajo coste.</li>
+        <li><strong>Contenido de valor:</strong> blog y newsletter sobre orientación laboral y tendencias del sector.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [18] ÍNDICE activo: 4
+════════════════════════════════════════════ -->
+<section data-state="index">
+  <div class="idx-wrap">
+    <div class="idx-header">
+      <span class="idx-heading">Índice</span>
+    </div>
+    <div class="idx-grid" id="idx-4" data-active="4"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [19] Operaciones (I) — Resumen del proceso
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Plan de operaciones y producción</span>
+  <div class="slide-title">Plan de operaciones y producción</div>
+  <ul>
+    <li>El funcionamiento de NexoCarrera se basa en un proceso estructurado que permite transformar los datos del usuario en recomendaciones profesionales útiles y medibles.</li>
+    <li>El sistema utiliza Inteligencia Artificial para analizar el perfil del usuario, identificar las trayectorias profesionales más adecuadas y facilitar su conexión con el mercado laboral.</li>
+    <li>Se trata de un modelo automatizado y escalable, que mejora continuamente gracias al aprendizaje basado en datos reales de inserción laboral.</li>
+  </ul>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [20] Operaciones (II) — Ciclo de vida del usuario
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Plan de operaciones y producción</span>
+  <div class="slide-title">Plan de operaciones y producción (II) — Ciclo de vida del usuario</div>
+  <ul>
+    <li>El proceso comienza con el <strong>onboarding</strong> del usuario, donde introduce su formación, intereses, habilidades y preferencias laborales, junto con un test inicial que permite profundizar en su perfil.</li>
+    <li>A partir de estos datos, el sistema genera un <strong>perfil digital estructurado</strong>, transformando la información en variables que pueden ser analizadas por el algoritmo.</li>
+    <li>El <strong>algoritmo de Matching de Especialización</strong> analiza patrones de éxito profesional y determina las trayectorias con mayor probabilidad de encaje.</li>
+    <li>Finalmente, el usuario recibe <strong>recomendaciones personalizadas</strong>, interactúa con un chat inteligente para ajustar su perfil y accede a oportunidades laborales previamente filtradas.</li>
+  </ul>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [21] Operaciones (III) — Generación de valor y mejora
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Plan de operaciones y producción</span>
+  <div class="slide-title">Plan de operaciones y producción (III) — Generación de valor y mejora del sistema</div>
+  <ul>
+    <li>NexoCarrera no se limita a mostrar ofertas de empleo, sino que guía al usuario en la toma de decisiones profesionales, reduciendo la incertidumbre y aumentando la probabilidad de éxito.</li>
+    <li>Para las empresas, el sistema permite acceder a talento previamente filtrado, reduciendo el tiempo y coste de selección.</li>
+    <li>Además, la plataforma incorpora un <strong>sistema autoaprendente</strong> que mejora continuamente mediante el análisis del comportamiento de los usuarios y su inserción laboral, aumentando la precisión del algoritmo con el tiempo.</li>
+  </ul>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [22] Operaciones (IV) — Infraestructura tecnológica
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Plan de operaciones y producción</span>
+  <div class="slide-title">Plan de operaciones y producción (IV) — Infraestructura tecnológica</div>
+  <ul>
+    <li>La plataforma se basa en una <strong>arquitectura en la nube</strong>, lo que permite escalar el sistema sin necesidad de infraestructura física propia.</li>
+    <li>El <strong>backend</strong> gestiona la lógica del sistema, el procesamiento de datos y el algoritmo de matching, mientras que el <strong>frontend</strong> proporciona una interfaz intuitiva accesible desde distintos dispositivos.</li>
+    <li>El sistema cuenta con una <strong>base de datos segura</strong> y un módulo de Inteligencia Artificial encargado del análisis predictivo.</li>
+    <li>Además, se implementan medidas de seguridad como <strong>cifrado, control de accesos y anonimización de datos</strong> para cumplir con la normativa RGPD.</li>
+  </ul>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [23] ÍNDICE activo: 5
+════════════════════════════════════════════ -->
+<section data-state="index">
+  <div class="idx-wrap">
+    <div class="idx-header">
+      <span class="idx-heading">Índice</span>
+    </div>
+    <div class="idx-grid" id="idx-5" data-active="5"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [24] RRHH (I) — Estructura organizativa
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Organización y recursos humanos</span>
+  <div class="slide-title">Organización y recursos humanos (I)</div>
+  <ul>
+    <li>NexoCarrera se organiza mediante una <strong>estructura horizontal</strong> propia de startups tecnológicas en fase inicial, lo que permite una toma de decisiones ágil y colaborativa.</li>
+    <li>El equipo está formado por <strong>cinco socios con roles definidos</strong>, cubriendo todas las áreas clave del negocio: dirección, tecnología, producto, marketing y desarrollo de negocio.</li>
+    <li>Esta estructura permite mantener un modelo <strong>eficiente, flexible</strong> y alineado con el crecimiento del proyecto.</li>
+  </ul>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [25] RRHH (II) — Roles y funciones
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Organización y recursos humanos</span>
+  <div class="slide-title">Organización y recursos humanos (II) — Roles y funciones del equipo</div>
+  <ul>
+    <li>El <strong>CEO</strong> define la visión del proyecto, coordina al equipo y representa la empresa ante inversores e instituciones.</li>
+    <li>El <strong>CTO</strong> lidera el desarrollo tecnológico, incluyendo la arquitectura del sistema, el algoritmo de matching y la infraestructura en la nube.</li>
+    <li>El <strong>CPO</strong> es responsable del producto y la experiencia del usuario, definiendo funcionalidades y evolución del sistema.</li>
+    <li>El <strong>CMO</strong> se encarga de la captación de usuarios y del posicionamiento de la marca mediante estrategias de marketing.</li>
+    <li>El <strong>CBDO</strong> gestiona las relaciones con empresas y universidades, cerrando acuerdos clave para la expansión del proyecto.</li>
+  </ul>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [26] ÍNDICE activo: 6
+════════════════════════════════════════════ -->
+<section data-state="index">
+  <div class="idx-wrap">
+    <div class="idx-header">
+      <span class="idx-heading">Índice</span>
+    </div>
+    <div class="idx-grid" id="idx-6" data-active="6"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [27] Financiero (I) — Inversión inicial
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Plan económico y financiero</span>
+  <div class="slide-title">Plan económico y financiero (I)</div>
+  <div class="fin-section">
+    <div class="fin-label">Plan de Inversión Inicial: Se estima una inversión de 50.000€</div>
+    <ul class="fin-list">
+      <li>Desarrollo Tecnológico: 25.000€. Programación visual, arquitectura en la nube, licencias, creación de algoritmo de Smart Matching.</li>
+      <li>Gastos Operativos: 13.000€
+        <ul>
+          <li>Constitución y Legal: 3.000€. Garantización del estricto cumplimiento del RGPD.</li>
+          <li>Marketing y Lanzamiento: 10.000€. Campañas de publicidad segmentadas y acciones de captación directa.</li>
+        </ul>
+      </li>
+      <li>Fondo de Maniobra: 12.000€. Colchón de seguridad para evitar la quiebra hasta el punto de equilibrio.</li>
+    </ul>
+  </div>
+  <div class="fin-section">
+    <div class="fin-label">Cuenta de Resultados provisional a 3 años:</div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [28] Financiero (II) — Modelo de ingresos + Costes + Márgenes
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Plan económico y financiero</span>
+  <div class="slide-title">Plan económico y financiero (II)</div>
+  <div class="fin-section">
+    <div class="fin-label">Modelo de Ingresos:</div>
+    <ul class="fin-list">
+      <li>B2C: Orientado a Estudiantes. Esquema Freemium.
+        <ul>
+          <li>Plan Gratuito. Asegura la entrada masiva de datos.</li>
+          <li>Plan Premium. 9,90€/mes para aquellos que busquen servicios avanzados.</li>
+        </ul>
+      </li>
+      <li>B2B: Orientado a empresas.
+        <ul>
+          <li>Pay Per Match. 150€ por cada estudiante contratado.</li>
+          <li>Suscripción Corporativa. 200€/mes para tener acceso a perfiles ilimitados ya filtrados por el algoritmo.</li>
+        </ul>
+      </li>
+      <li>Convenios estratégicos: Universidades pagan una cuota anual para integrar NexoCarrera como herramienta oficial de orientación.</li>
+    </ul>
+  </div>
+  <div class="fin-section">
+    <div class="fin-label">Estructura de Costes:</div>
+    <ul class="fin-list"><li>Año 1: Costes fijos de 45.000€.</li></ul>
+  </div>
+  <div class="fin-section">
+    <div class="fin-label">Márgenes de Beneficio:</div>
+    <ul class="fin-list">
+      <li>Estudiantes Premium: 85%.</li>
+      <li>Empresas: 90%.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [29] Financiero (III) — Proyección + Balance
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Plan económico y financiero</span>
+  <div class="slide-title">Plan económico y financiero (III)</div>
+  <div class="fin-section">
+    <div class="fin-label">Proyección de Facturación:</div>
+    <ul class="fin-list">
+      <li>Año 1 (Penetración): Asumimos pérdidas. Los ingresos de los convenios y las pruebas B2B ayudarán a amortiguar los 45.000€ de costes fijos.</li>
+      <li>Año 2 (Crecimiento): Facturación proyectada de 120.000€ impulsada por los contratos recurrentes y la conversión del 5% de usuarios gratuitos a Premium.</li>
+      <li>Año 3 (Escalabilidad Nacional): Estimación de ventas de 280.000€ gracias a la automatización total del sistema y la expansión territorial.</li>
+    </ul>
+  </div>
+  <div class="fin-section">
+    <div class="fin-label">Balance de Situación Previsto:</div>
+    <ul class="fin-list">
+      <li>Activo:
+        <ul>
+          <li>Activo No Corriente Intangible: 25.000€ de inversión tecnológica, 3.000€ de gasto legal.</li>
+          <li>Activo Corriente: Tesorería líquida: 12.000€ del fondo de maniobra y 10.000€ para financiar las acciones de marketing inmediatas.</li>
+        </ul>
+      </li>
+      <li>Pasivo y Patrimonio Neto: Los 50.000€ iniciales provienen de las aportaciones de Capital Social de los socios promotores. Así, podemos actuar sin la presión de los intereses bancarios, y aseguramos que todos los flujos de caja sean para mejorar el proyecto.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [30] Financiero (IV) — Break-even + ROI + Conclusión
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Plan económico y financiero</span>
+  <div class="slide-title">Plan económico y financiero (IV)</div>
+  <div class="fin-section">
+    <div class="fin-label">Punto de Equilibrio: 14 meses desde el lanzamiento:</div>
+    <ul class="fin-list">
+      <li>500 estudiantes Premium.</li>
+      <li>30 empresas suscritas de forma recurrente.</li>
+    </ul>
+  </div>
+  <div class="fin-section">
+    <div class="fin-label">Retorno de la Inversión:</div>
+    <ul class="fin-list">
+      <li>Estimamos un beneficio neto de 75.000€ al final del tercer ejercicio. Al ponerlo en relación con los 50.000€ de inversión inicial, obtenemos un <strong style="color:var(--gold)">ROI estimado del 150%</strong>.</li>
+    </ul>
+  </div>
+  <div class="conclusion">
+    Con los datos financieros encima de la mesa, podemos asegurar que NexoCarrera es un proyecto atractivo, escalable y rentable. Queremos demostrar que la Ciencia de Datos aplicada al mundo laboral es capaz de generar un impacto social incalculable, combatiendo la incertidumbre juvenil, optimizando la inserción en el mercado laboral y consiguiendo que los jóvenes trabajen por pasión y vocación.
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [31] ÍNDICE activo: 7
+════════════════════════════════════════════ -->
+<section data-state="index">
+  <div class="idx-wrap">
+    <div class="idx-header">
+      <span class="idx-heading">Índice</span>
+    </div>
+    <div class="idx-grid" id="idx-7" data-active="7"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [32] Resumen ejecutivo
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Resumen ejecutivo</span>
+  <div class="slide-title">Resumen ejecutivo</div>
+  <div class="exec-grid">
+    <div>
+      <div class="exec-block">
+        <div class="exec-label">El problema</div>
+        <ul>
+          <li>Alta tasa de paro juvenil + desconexión universidad-empresa.</li>
+          <li>La Gen Z rechaza los portales masivos (LinkedIn, InfoJobs): quiere orientación, no listas de ofertas.</li>
+          <li>Las empresas pierden tiempo filtrando candidatos que no encajan.</li>
+        </ul>
+      </div>
+      <div class="exec-block" style="margin-top:10px">
+        <div class="exec-label">Nuestra solución — Océano Azul</div>
+        <p>Algoritmo de <em style="color:var(--cyan);font-style:normal">Matching de Especialización</em>: predice qué trayectorias encajan con cada perfil. Orientación predictiva personalizada, no bolsa de empleo.</p>
+      </div>
+      <div class="exec-block" style="margin-top:10px">
+        <div class="exec-label">Clientes</div>
+        <ul>
+          <li>Estudiantes de grado · Recién graduados</li>
+          <li>Empresas reclutadoras · Universidades</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="exec-block">
+        <div class="exec-label">Modelo de ingresos</div>
+        <ul>
+          <li>Freemium B2C — Premium 9,90€/mes</li>
+          <li>Pay Per Match B2B — 150€/contratación</li>
+          <li>Suscripción Corporativa — 200€/mes</li>
+          <li>Licencias universitarias — cuota anual</li>
+        </ul>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi">
+          <span class="kpi-value" data-countup="50000" data-suffix="€">50.000€</span>
+          <span class="kpi-label">Inversión inicial<br>autofinanciada</span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-value">Mes 14</span>
+          <span class="kpi-label">Punto de<br>equilibrio</span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-value" data-countup="150" data-suffix="%">150%</span>
+          <span class="kpi-label">ROI estimado<br>a 3 años</span>
+        </div>
+      </div>
+      <div class="exec-block" style="margin-top:10px">
+        <div class="exec-label">El equipo</div>
+        <p>5 ingenieros de datos de la URJC. Todos los roles directivos cubiertos desde el día 1. Construimos el algoritmo nosotros mismos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [33] ÍNDICE activo: 8
+════════════════════════════════════════════ -->
+<section data-state="index">
+  <div class="idx-wrap">
+    <div class="idx-header">
+      <span class="idx-heading">Índice</span>
+    </div>
+    <div class="idx-grid" id="idx-8" data-active="8"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     [34] Anexos — Registro de uso de IA
+════════════════════════════════════════════ -->
+<section>
+  <span class="slide-section">Anexos</span>
+  <div class="slide-title">Registro de uso de Inteligencia Artificial Generativa</div>
+  <table class="anx-table">
+    <tr>
+      <th>Herramienta</th>
+      <th>Empresa</th>
+      <th>Uso realizado</th>
+      <th>Secciones afectadas</th>
+    </tr>
+    <tr>
+      <td>Claude</td>
+      <td>Anthropic</td>
+      <td>Apoyo en la estructuración de textos, revisión de redacción y organización de contenidos</td>
+      <td>Memoria completa</td>
+    </tr>
+    <tr>
+      <td>ChatGPT</td>
+      <td>OpenAI</td>
+      <td>Generación de ideas iniciales y revisión de coherencia argumental</td>
+      <td>Análisis de mercado y propuesta de valor</td>
+    </tr>
+  </table>
+  <div class="conclusion" style="margin-top:16px">
+    Todo el contenido generado fue revisado, contrastado y validado en su totalidad por los integrantes del grupo. El Canvas, los datos financieros, las entrevistas a clientes y el análisis estratégico fueron elaborados y verificados manualmente por el equipo.
+  </div>
+</section>
+
+</div><!-- /slides -->
+</div><!-- /reveal -->
+
+<script src="vendor/reveal.js"></script>
+<script>
+/* ── INDEX BUILDER ─────────────────────────────────────── */
+const IDX_ITEMS = [
+  'Presentación del proyecto y equipo',
+  'Descripción del negocio y propuesta de valor',
+  'Plan de marketing',
+  'Plan de operaciones y producción',
+  'Organización y recursos humanos',
+  'Plan económico y financiero',
+  'Resumen ejecutivo',
+  'Anexos'
+];
+
+function buildIndex(grid) {
+  const active = parseInt(grid.dataset.active) || 0;
+  grid.innerHTML = IDX_ITEMS.map((label, i) => {
+    const n = i + 1;
+    const isActive = n === active;
+    return `<div class="idx-item${isActive ? ' active' : ''}">
+      <span class="idx-num">0${n}</span>
+      <span class="idx-label">${label}</span>
+    </div>`;
+  }).join('');
+}
+
+document.querySelectorAll('.idx-grid').forEach(buildIndex);
+
+/* ── ACTIVE ITEM SLIDE-IN ANIMATION ───────────────────── */
+Reveal.on('slidechanged', function(event) {
+  const grid = event.currentSlide.querySelector('.idx-grid');
+  if (!grid) return;
+  const activeItem = grid.querySelector('.idx-item.active');
+  if (activeItem) {
+    activeItem.classList.remove('anim');
+    void activeItem.offsetWidth;
+    activeItem.classList.add('anim');
+  }
+});
+
+/* ── COUNT-UP FOR KPIs ─────────────────────────────────── */
+function runCountUp(slide) {
+  slide.querySelectorAll('[data-countup]').forEach(el => {
+    const target = parseInt(el.dataset.countup);
+    const suffix = el.dataset.suffix || '';
+    const duration = 900;
+    let startTime = null;
+    function step(ts) {
+      if (!startTime) startTime = ts;
+      const progress = Math.min((ts - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * target);
+      if (suffix === '€') {
+        el.textContent = current.toLocaleString('es-ES') + '€';
+      } else {
+        el.textContent = current + suffix;
+      }
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+}
+
+Reveal.on('slidechanged', function(event) {
+  if (event.currentSlide.querySelector('[data-countup]')) {
+    runCountUp(event.currentSlide);
+  }
+});
+
+/* ── REVEAL INIT ───────────────────────────────────────── */
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'fade',
+  transitionSpeed: 'fast',
+  backgroundTransition: 'none',
+  controls: true,
+  progress: true,
+  center: false,
+  width: 1280,
+  height: 720,
+  margin: 0,
+  plugins: []
+});
+</script>
+</body>
+</html>
